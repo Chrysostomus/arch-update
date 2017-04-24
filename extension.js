@@ -38,19 +38,19 @@ const Me = ExtensionUtils.getCurrentExtension();
 const Utils = Me.imports.utils;
 
 const Format = imports.format;
-const Gettext = imports.gettext.domain('arch-update');
+const Gettext = imports.gettext.domain('manjaro-update');
 const _ = Gettext.gettext;
 
 /* Options */
 let ALWAYS_VISIBLE     = true;
 let SHOW_COUNT         = true;
-let BOOT_WAIT		   = 15;      // 15s
-let CHECK_INTERVAL     = 60*60;   // 1h
+let BOOT_WAIT		   = 30;      // 15s
+let CHECK_INTERVAL     = 360*360;   // 1h
 let NOTIFY             = false;
 let HOWMUCH            = 0;
 let TRANSIENT          = true;
-let UPDATE_CMD         = "gnome-terminal -e 'sh -c  \"sudo pacman -Syu ; echo Done - Press enter to exit; read\" '";
-let CHECK_CMD          = "/usr/bin/checkupdates";
+let UPDATE_CMD         = "update-command";
+let CHECK_CMD          = "/usr/bin/update-check";
 let PACMAN_DIR         = "/var/lib/pacman/local";
 let STRIP_VERSIONS     = true;
 let AUTO_EXPAND_LIST   = 0;
@@ -63,11 +63,11 @@ let UPDATES_LIST       = [];
 
 function init() {
 	String.prototype.format = Format.format;
-	Utils.initTranslations("arch-update");
+	Utils.initTranslations("manjaro-update");
 }
 
-const ArchUpdateIndicator = new Lang.Class({
-	Name: 'ArchUpdateIndicator',
+const ManjaroUpdateIndicator = new Lang.Class({
+	Name: 'ManjaroUpdateIndicator',
 	Extends: PanelMenu.Button,
 
 	_TimeoutId: null,
@@ -78,7 +78,7 @@ const ArchUpdateIndicator = new Lang.Class({
 	_updateList: [],
 
 	_init: function() {
-		this.parent(0.0, "ArchUpdateIndicator");
+		this.parent(0.0, "ManjaroUpdateIndicator");
 		Gtk.IconTheme.get_default().append_search_path(Me.dir.get_child('icons').get_path());
 
 		this.updateIcon = new St.Icon({icon_name: "arch-unknown-symbolic", style_class: 'system-status-icon'});
@@ -285,13 +285,13 @@ const ArchUpdateIndicator = new Lang.Class({
 					if (updateList.length > 0) {
 						// Show notification only if there's new updates
 						this._showNotification(
-							Gettext.ngettext( "New Arch Linux Update", "New Arch Linux Updates", updateList.length ),
+							Gettext.ngettext( "New Manjaro Update", "New Manjaro Updates", updateList.length ),
 							updateList.join(', ')
 						);
 					}
 				} else {
 					this._showNotification(
-						Gettext.ngettext( "New Arch Linux Update", "New Arch Linux Updates", updatesCount ),
+						Gettext.ngettext( "New Manjaro Update", "New Manjaro Updates", updatesCount ),
 						Gettext.ngettext( "There is %d update pending", "There are %d updates pending", updatesCount ).format(updatesCount)
 					);
 				}
@@ -430,13 +430,13 @@ const ArchUpdateIndicator = new Lang.Class({
 
 });
 
-let archupdateindicator;
+let manjaroupdateindicator;
 
 function enable() {
-	archupdateindicator = new ArchUpdateIndicator();
-	Main.panel.addToStatusArea('ArchUpdateIndicator', archupdateindicator);
+	manjaroupdateindicator = new ManjaroUpdateIndicator();
+	Main.panel.addToStatusArea('ManjaroUpdateIndicator', manjaroupdateindicator);
 }
 
 function disable() {
-	archupdateindicator.destroy();
+	manjaroupdateindicator.destroy();
 }
