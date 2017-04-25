@@ -1,12 +1,13 @@
 {
-  "description": "Update indicator for Manjaro Linux and GNOME Shell.\nCan support AUR or other distros by changing command used to check for and apply updates.", 
+  "description": "Update indicator for Manjaro Linux and GNOME Shell.\nSupports AUR and integrates with pamac and mhwd.", 
   "name": "Manjaro Linux Updates Indicator",
   "shell-version": [
     "3.18",
     "3.20",
-    "3.22"
+    "3.22",
+    "3.24"
   ], 
   "url": "https://github.com/Chrysostomus/arch-update", 
-  "uuid": "manjaro-update@RaphaelRochet", 
+  "uuid": "manjaro-update@Chrysostomus", 
   "version": 20
 }
