@@ -57,7 +57,7 @@ let AUTO_EXPAND_LIST   = 0;
 
 // fhdk - adding items for Pamac
 let PAMAC_MANAGER	   = "/usr/bin/pamac-manager";
-let PAMAC_UPDATER      = "/usr/bin/pamac-updater";
+// let PAMAC_UPDATER      = "/usr/bin/pamac-updater";
 
 /* Variables we want to keep when extension is disabled (eg during screen lock) */
 let FIRST_BOOT         = 1;
@@ -109,7 +109,7 @@ const ManjaroUpdateIndicator = new Lang.Class({
 
 	// fhdk - adding items for Pamac
 	this.launchPmMenuItem = new PopupMenu.PopupMenuItem('Pamac Manager');
-	this.launchPuMenuItem = new PopupMenu.PopupMenuItem('Pamac Updater')
+	// this.launchPuMenuItem = new PopupMenu.PopupMenuItem('Pamac Updater')
 
 	// A special "Checking" menu item with a stop button
 	this.checkingMenuItem = new PopupMenu.PopupBaseMenuItem( {reactive:false} );
@@ -137,7 +137,7 @@ const ManjaroUpdateIndicator = new Lang.Class({
 	this.menu.addMenuItem(settingsMenuItem);
 	// fhdk - adding items for Pamac
 	this.menu.addMenuItem(this.launchPmMenuItem);
-	this.menu.addMenuItem(this.launchPuMenuItem);
+	// this.menu.addMenuItem(this.launchPuMenuItem);
 
 	// Bind some events
 	this.menu.connect('open-state-changed', Lang.bind(this, this._onMenuOpened));
@@ -147,7 +147,7 @@ const ManjaroUpdateIndicator = new Lang.Class({
 	this.updateNowMenuItem.connect('activate', Lang.bind(this, this._updateNow));
 	// fhdk - adding items for Pamac
 	this.launchPmMenuItem.connect('activate', Lang.bind(this, this._launchPm));
-	this.launchPuMenuItem.connect('activate', Lang.bind(this, this._launchPu));
+	// this.launchPuMenuItem.connect('activate', Lang.bind(this, this._launchPu));
 
 	// Load settings
 	this._settings = Utils.getSettings();
@@ -180,9 +180,9 @@ const ManjaroUpdateIndicator = new Lang.Class({
 	Util.spawnCommandLine(PAMAC_MANAGER);
     },
     // fhdk - adding items for Pamac
-    _launchPu: function() {
-	Util.spawnCommandLine(PAMAC_UPDATER);
-    },
+    // _launchPu: function() {
+	// Util.spawnCommandLine(PAMAC_UPDATER);
+    // },
 
     _openSettings: function () {
 	Util.spawn([ "gnome-shell-extension-prefs", Me.uuid ]);
